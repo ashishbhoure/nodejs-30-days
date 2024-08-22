@@ -1,0 +1,137 @@
+# CONSOLE MODULE
+
+--- Introduction to console ---
+-> The console module provides us with debugging console similar to javascript console mechanism web browsers provide us. 
+
+It exports two components :
+1. console class : It includes methods such as console.log() , console.warn() , console.error() which we can use to write to node.js streams.
+2. Global console instance : This method is configured to write on process.stderr , process.stdout() and it can be used without exclusively calling the module require('console') .
+
+--- console.log() and all its variations ---
+-> console.log() is used to print to stdout with a newline. We can pass multiple arguments. 
+EX:-
+    console.log('1 : hello world !');     //using ' ' to print
+    console.log("2 : this will also work");  //using " " to print
+
+    var str = 'nodejs';
+    console.log(str);  //printing a string
+
+---- Create a new console ----
+-> Creating a new console where stdout will store the output and stderr.log will store the errors ( if any ) .
+Ex:-   								
+    var ws = require('fs');
+    const { Console } = require('console');
+    const output = ws.createWriteStream('./stdout.log');
+    const errOutput = ws.createWriteStream('./stderr.log');
+    const print = new Console(output, errOutput);   // custom simple print
+    const roll = 839147;   //Now we can use it like console
+    print.log('roll: %d', roll);
+    print.log('This will be stored in a file');		
+
+OUTPUT :- 								
+    roll: 839147
+    This will be stored in a file
+
+ 
+ --- console.clear() ---
+ This method is used to clear the console. 
+ Clearing the console can be useful while dealing with a big program in which you are logging a lot of stuff and while performing debugging , 
+ you want to see output after a certain point. 
+ For e.g. in the snippet below we are printing the value which changes in the program so we will clear the previous values from the console and see only the final value in the end. 
+ This is a very simple example of how console.clear method can be used.
+
+Ex:- 
+    //Available in Current Version
+    var value = 10;
+    console.log("Value : %d", value);
+    console.clear();
+    value *= value;
+    console.log("Value : %d", value);	
+OUTPUT:- 
+    Value : 100	
+
+
+--- console.count() ---
+This module is used to maintains an internal label and output to stdout the number of times console.count() is called with any particular label. 
+For e.g. in the snippet below labels are default , remo and rj whose occurrences are printed in the console. 
+The default label is default .
+Ex:-
+    console.count('remo');
+    console.count('rj');
+    console.count();		
+
+--- console.countReset() ---
+This method is used to reset the counter for a particular label internally.
+By default it will decrement default .
+Ex:-
+    console.count('remo');  //remo=2
+    console.countReset('remo'); //remo=1
+
+--- console.error() ---
+This method is used to print to stderr . 
+We can pass multiple arguments where first argument is primary and remaining arguments are substitution values. 
+Note : Not available in LTS 6.11.3. Use latest version.
+Ex:-
+    var x = 10;
+    var y = 20;
+    var result = x/y;
+
+    if(result == 2){
+        console.log("Result : %d".result)
+    }else{
+        console.error("Error : Error in Positioning Operands");
+    }	
+
+--- console.time() and console.timeEnd() ---
+console.time method is used to start a timer which can be used to compute the duration of the operation.
+Each timer is identified using unique label . 
+We use the same label while calling console.timeEnd method which is used to stop the timer. 
+Time is printed in milliseconds on stdout by console.timeEnd() method.
+Ex:-
+    console.time('division');
+    var x = 10;
+    var y = 20;
+    var result = x/y;
+
+    if(result == 2){
+        console.log("Result : %d".result)
+    }else{
+        console.log("Result : " + result);
+    }
+    console.timeEnd('division');	
+
+
+--- console.warn() ---
+This method is similar to console.error and is used to print to stderr .
+Ex:-
+    var x = 10;
+    var y = 20;
+    var result = x/y;
+
+    if( (result % 2) == 0){
+        console.log("Result : %d".result)
+    }else{
+        console.warn("Warning :  Decimal number");
+    }			
+
+
+--- Summary ---
+In this part of node.js tutorial series we learned about the following :
+
+-> Introduction to console
+    1. Console class
+    2. Global console instance
+->console.log() and all its variations
+->Create a new console
+->console.clear()
+->console.count()
+->console.countReset()
+->console.error()
+->console.time() and console.timeEnd()
+->console.warn()
+
+	
+
+
+
+
